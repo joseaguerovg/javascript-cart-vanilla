@@ -84,10 +84,9 @@ body {
 }
 
 .shopping-cart {
-    /* display: none; */
     position: fixed;
     top: 0;
-    right: 0;
+    right: -100%;
     background: #343a40;
     height: 100vh;
     width: 300px;
@@ -95,6 +94,11 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: 300ms;
+}
+
+.open-cart {
+    right: 0;
 }
 
 .shopping-cart .cart-title {
