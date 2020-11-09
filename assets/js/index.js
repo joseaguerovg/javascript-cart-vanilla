@@ -1,8 +1,13 @@
+import Cart from './Cart.js';
+
 const d = document,
     w = window,
     shoppingCart = d.querySelector('.shopping-cart');
 
-const addProductToCart = () => {
+const cart = new Cart();
+
+const addProductToCart = (element) => {
+    console.log(cart.addProduct(element));
     shoppingCart.classList.add('open-cart');
 }
 
@@ -24,3 +29,10 @@ d.addEventListener("click", (e) => {
 shoppingCart.addEventListener('click', (e) => {
     e.stopPropagation();
 });
+
+d.addEventListener("DOMContentLoaded", (e) => {
+    const $cartQuantity = d.querySelector('.qty-cart');
+    
+    
+
+})
