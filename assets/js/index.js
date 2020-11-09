@@ -6,13 +6,17 @@ const d = document,
 
 const cart = new Cart();
 
-const addProductToCart = (element) => {
-    console.log(cart.addProduct(element));
+const openCart = () => {
     shoppingCart.classList.add('open-cart');
 }
 
 const closeCart = () => {
     shoppingCart.classList.remove('open-cart');
+}
+
+const addProductToCart = (element) => {
+    console.log(cart.addProduct(element));
+    openCart();
 }
 
 d.addEventListener("click", (e) => {
@@ -22,6 +26,10 @@ d.addEventListener("click", (e) => {
 
     if (shoppingCart.classList.contains('open-cart') && !e.target.matches('.add-to-cart')) {
         closeCart();
+    }
+
+    if(e.target.matches("#button-cart") || e.target.matches("#button-cart *")){
+        openCart();
     }
 
 })
