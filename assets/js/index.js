@@ -32,7 +32,5 @@ shoppingCart.addEventListener('click', (e) => {
 
 d.addEventListener("DOMContentLoaded", (e) => {
     const $cartQuantity = d.querySelector('.qty-cart');
-    
-    
-
+    $cartQuantity.textContent = cart.getTotalProducts();
 })

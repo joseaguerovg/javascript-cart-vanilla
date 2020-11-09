@@ -41,7 +41,11 @@ export default class Cart{
     }
 
     getTotalProducts(){
-        return this.products.length;
+        if(this.products.length > 0){
+            return this.products.reduce((acc, element) => acc + element.qty, 0);
+        }
+
+        return 0;
     }
 
     existsInCart(id){
