@@ -7,9 +7,4 @@ export default class Product {
         this.qty = qty;
     }
 
-    formatPrice(){
-        const formatted = new Intl.NumberFormat('es-CH').format(this.price);
-        return `$${formatted}`;
-    }
-
 }

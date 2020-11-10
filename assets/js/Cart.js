@@ -1,9 +1,10 @@
 import Product from "./Product.js";
+import { formatPrice } from "./helpers.js";
 
 export default class Cart{
     constructor(){
         if(localStorage.getItem("shopping-cart")){
-            this.products = JSON.parse(localStorage.getItem("shopping-cart"));
+            this.products = this.getProductsStorage();
         }else{
             this.products = [];
         }
@@ -40,6 +41,10 @@ export default class Cart{
         return JSON.stringify(this.products);
     }
 
+    getProductsStorage(){
+        return JSON.parse(localStorage.getItem("shopping-cart"));
+    }
+
     getTotalProducts(){
         if(this.products.length > 0){
             return this.products.reduce((acc, element) => acc + element.qty, 0);
@@ -50,6 +55,11 @@ export default class Cart{
 
     existsInCart(id){
         return this.products.findIndex(el => el.id === id);
+    }
+
+    getTotalPricesList(){
+        const sumPrices = this.products.reduce((acc, element) => acc + element.price, 0);
+        return formatPrice(sumPrices);
     }
 
 }

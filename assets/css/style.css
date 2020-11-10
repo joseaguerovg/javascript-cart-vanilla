@@ -118,6 +118,7 @@ body {
     border-radius: .3rem;
     padding: 10px;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .shopping-cart #products-cart .item-row .picture {
