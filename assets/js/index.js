@@ -4,7 +4,7 @@ import {formatPrice} from './helpers.js';
 
 const d = document,
     w = window,
-    shoppingCart = d.querySelector('.shopping-cart');
+    $shoppingCart = d.querySelector('.shopping-cart');
 
 const cart = new Cart();
 
@@ -22,7 +22,10 @@ const UICartProducts = () => {
 
         products.forEach((product) => {
             const $itemRow = d.createElement('div');
+
             $itemRow.classList.add('item-row');
+            $itemRow.dataset.id = product.id;
+            
             $itemRow.innerHTML = `
             <div class="picture">
                 <img src="${product.image}">
@@ -48,15 +51,16 @@ const UICartProducts = () => {
     }
 
     $totalPrices.textContent = `Total: $${cart.getTotalPricesList()}`;
+    getTotalCartItems();
 }
 
 const openCart = () => {
-    shoppingCart.classList.add('open-cart');
+    $shoppingCart.classList.add('open-cart');
     UICartProducts();
 }
 
 const closeCart = () => {
-    shoppingCart.classList.remove('open-cart');
+    $shoppingCart.classList.remove('open-cart');
 }
 
 const getTotalCartItems = () => {
@@ -65,18 +69,28 @@ const getTotalCartItems = () => {
 }
 
 const addProductToCart = (element) => {
-    cart.addProduct(element);
-    getTotalCartItems();
-    UICartProducts();
+
+    const $item = element.target.parentElement;
+
+    const newProduct = new Product(
+        parseInt($item.querySelector('.add-to-cart').dataset.id),
+        $item.querySelector('.name').textContent,
+        parseInt($item.querySelector('.price').textContent.replace('$', '').replace('.', '')),
+        $item.querySelector('.picture img').getAttribute('src'),
+        1
+    );
+
+    cart.addProduct(newProduct);
     openCart();
 }
 
+/***** All Events *****/
 d.addEventListener("click", (e) => {
     if (e.target.matches(".add-to-cart")) {
         addProductToCart(e);
     }
 
-    if (shoppingCart.classList.contains('open-cart') && !e.target.matches('.add-to-cart')) {
+    if ($shoppingCart.classList.contains('open-cart') && !e.target.matches('.add-to-cart')) {
         closeCart();
     }
 
@@ -84,13 +98,27 @@ d.addEventListener("click", (e) => {
         openCart();
     }
 
-})
+});
 
-shoppingCart.addEventListener('click', (e) => {
+d.addEventListener('click', (e) => {
+    if(e.target.matches(".add-qty")){
+        const productId = parseInt(e.target.parentElement.parentElement.parentElement.dataset.id);
+        cart.updateProduct(productId, 'add');
+        UICartProducts();
+    }
+
+    if(e.target.matches(".remove-qty")){
+        const productId = parseInt(e.target.parentElement.parentElement.parentElement.dataset.id);
+        cart.updateProduct(productId, 'remove');
+        UICartProducts();
+    }
+}, true);
+
+$shoppingCart.addEventListener('click', (e) => {
     e.stopPropagation();
 });
 
 d.addEventListener("DOMContentLoaded", (e) => {
-    getTotalCartItems();
     UICartProducts();
 })
+
