@@ -110,6 +110,8 @@ body {
     flex: auto;
     padding: 20px;
     padding-top: 0px;
+    max-height: 510px;
+    overflow: auto;
 }
 
 .shopping-cart #products-cart .item-row {

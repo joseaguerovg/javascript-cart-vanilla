@@ -84,8 +84,13 @@ const addProductToCart = (element) => {
     openCart();
 }
 
-/***** All Events *****/
+d.addEventListener("DOMContentLoaded", (e) => {
+    UICartProducts();
+});
+
+/***** Bubble Events *****/
 d.addEventListener("click", (e) => {
+
     if (e.target.matches(".add-to-cart")) {
         addProductToCart(e);
     }
@@ -99,7 +104,9 @@ d.addEventListener("click", (e) => {
     }
 
 });
+/*! **** END Bubble Events *****/
 
+/***** Capture Events *****/
 d.addEventListener('click', (e) => {
     if(e.target.matches(".add-qty")){
         const productId = parseInt(e.target.parentElement.parentElement.parentElement.dataset.id);
@@ -112,13 +119,10 @@ d.addEventListener('click', (e) => {
         cart.updateProduct(productId, 'remove');
         UICartProducts();
     }
+
 }, true);
+/*! **** END Capture Events *****/
 
 $shoppingCart.addEventListener('click', (e) => {
     e.stopPropagation();
 });
-
-d.addEventListener("DOMContentLoaded", (e) => {
-    UICartProducts();
-})
-
